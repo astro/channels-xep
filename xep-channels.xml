@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xmpp/extensions/xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xmpp/extensions/xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xmpp/extensions/xep.xsl'?>
+<xep>
+<header>
+  <title>Channels for Social Networking</title>
+  <abstract>This document describes a profile and conventions for usage of the PubSub protocol in the context of Social Networking.</abstract>
+  &LEGALNOTICE;
+  <number>xxxx</number>
+  <status>ProtoXEP</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <approver>Council</approver>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0001</spec>
+    <spec>Etc.</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>NOT_YET_ASSIGNED</shortname>
+  <author>
+    <firstname>Stephan</firstname>
+    <surname>Maka</surname>
+    <email>stephan@spaceboyz.net</email>
+  </author>
+  <!--revision>
+    <version>0.0.1</version>
+    <date>2001-09-14</date>
+    <initials>psa</initials>
+    <remark><p>First draft.</p></remark>
+  </revision-->
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>This is a template for use in writing XMPP Extension Protocol specifications (XEPs). For detailed information about the XSF's standards process and how to write a XEP, refer to "XEP-0001: XMPP Extension Protocols" and "XEP-0143: Guidelines for Authors of XMPP Extension Protocols".</p>
+</section1>
+<section1 topic='Requirements' anchor='reqs'>
+  <p>STRONGLY RECOMMENDED.</p>
+</section1>
+<section1 topic='Glossary' anchor='glossary'>
+  <p>OPTIONAL.</p>
+</section1>
+<section1 topic='Use Cases' anchor='usecases'>
+  <p>STRONGLY RECOMMENDED.</p>
+</section1>
+<section1 topic='Business Rules' anchor='rules'>
+  <p>OPTIONAL.</p>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <p>OPTIONAL.</p>
+</section1>
+<section1 topic='Accessibility Considerations' anchor='access'>
+  <p>OPTIONAL.</p>
+</section1>
+<section1 topic='Internationalization Considerations' anchor='i18n'>
+  <p>OPTIONAL.</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>REQUIRED.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>REQUIRED.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>REQUIRED.</p>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <p>REQUIRED for protocol specifications.</p>
+</section1>
+</xep>
