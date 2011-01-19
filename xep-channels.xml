@@ -155,6 +155,43 @@
   </section2>
 </section1>
 
+<section1 topic='Use Cases' anchor='usecases'>
+  <!-- http://open.buddycloud.com/api -->
+  <section2 topic='Channel server basics'>
+    <section3 topic='Go online'>
+    </section3>
+    <section3 topic='Create channel'>
+    </section3>
+    <section3 topic='Retrieve your channel subscriptions'>
+    </section3>
+    <section3 topic='Retrieve channel metadata'>
+    </section3>
+    <section3 topic='Set the channel&quot;s default affiliation'>
+    </section3>
+    <section3 topic='Follow a channel'>
+    </section3>
+    <section3 topic='Un-follow a channel'>
+    </section3>
+  </section2>
+
+  <section2 topic='Post Management'>
+    <section3 topic='Sync your channel messages'>
+    </section3>
+    <section3 topic='Delete/retract a channel post'>
+    </section3>
+    <section3 topic='Post to a channel'>
+    </section3>
+    <section3 topic='Retrieve a channel post'>
+    </section3>
+  </section2>
+
+  <section2 topic='Follower management'>
+    <section3 topic='Retrieve channel followers'>
+    </section3>
+    <section3 topic='Change the affiliation of a channel follower'>
+    </section3>
+  </section2>
+</section1>
 
 <section1 topic='Compatibility' anchor='compat'>
   <p>
