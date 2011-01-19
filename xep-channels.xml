@@ -16,12 +16,18 @@
   <approver>Council</approver>
   <dependencies>
     <spec>XMPP Core</spec>
-    <spec>XEP-0001</spec>
-    <spec>Etc.</spec>
+    <spec>XEP-0059 (Result Set Management)</spec>
+    <spec>XEP-0060 (Publish-Subscribe)</spec>
   </dependencies>
   <supersedes/>
   <supersededby/>
   <shortname>NOT_YET_ASSIGNED</shortname>
+  <author>
+    <firstname>Simon</firstname>
+    <surname>Tennant</surname>
+    <email>simon@buddycloud.com</email>
+    <jid>simon@buddycloud.com</jid>
+  </author>
   <author>
     <firstname>Stephan</firstname>
     <surname>Maka</surname>
@@ -35,39 +41,133 @@
   </revision-->
 </header>
 <section1 topic='Introduction' anchor='intro'>
-  <p>This is a template for use in writing XMPP Extension Protocol specifications (XEPs). For detailed information about the XSF's standards process and how to write a XEP, refer to "XEP-0001: XMPP Extension Protocols" and "XEP-0143: Guidelines for Authors of XMPP Extension Protocols".</p>
+  <p>
+    &xep0060; provides a lot of the functionality required by Social
+    Networks. Its profile &xep0163; attempts to bring this pattern to
+    users without any explicit configuration needed. Unfortunately, it
+    requires strong server support and implicit usage of the user's
+    Jabber-ID and home domain forbids usage of the well-established
+    component protocol.
+  </p>
+  <p>
+    Channels are an alternative profile of Publish-Subscribe based on
+    discoverable services. This document shall define conventions
+    required for interoperable Social Networking software.
+  </p>
 </section1>
-<section1 topic='Requirements' anchor='reqs'>
-  <p>STRONGLY RECOMMENDED.</p>
+<section1 topic='Conventions' anchor='conv'>
+  <section2 topic='Node addresses'>
+    <dl>
+      <di>
+	<dt>channel posts</dt>
+	<dd>/user/channeluser@example.com/channel</dd>
+      </di>
+      <di>
+	<dt>future location XEP-0080 format, usually empty</dt>
+	<dd>/user/channeluser@example.com/geo/future</dd>
+      </di>
+      <di>
+	<dt>current location in XEP-0080 format</dt>
+	<dd>/user/channeluser@example.com/geo/current</dd>
+      </di>
+      <di>
+	<dt>previous location in XEP-0080 format</dt>
+	<dd>/user/channeluser@example.com/geo/previous</dd>
+      </di>
+      <di>
+	<dt>current status message</dt>
+	<dd>/user/channeluser@example.com/mood</dd>
+      </di>
+      <di>
+	<dt>topic channel</dt>
+	<dd>/channel/welovecoffee</dd>
+      </di>
+    </dl>
+
+    <section3 topic='Proposed node addresses'>
+      <dl>
+	<di>
+	  <dt>adding reference to other channel postIDs</dt>
+	  <dd>/user/channeluser@example.com/references</dd>
+	</di>
+	<di>
+	  <dt>starred posts that are worth keeping long term</dt>
+	  <dd>/user/channeluser@example.com/starred</dd>
+	</di>
+      </dl>
+    </section3>
+  </section2>
+
+  <section2 topic='Node presets'>
+    <p>
+      Publish-Subscribe nodes are configurable in a multitude of
+      options. A user who wants to publish content may assume default
+      settings.
+    </p>
+    <p>
+      It is recommended to adapt security and privacy related settings
+      such as the default access model to the aim of the targeted user
+      community.
+    </p>
+
+    <table>
+      <tr>
+	<th>Setting</th><th>Example</th><th>Notes</th><th>Defaults</th></tr>
+	<tr><td>Channel title</td><td>My Channel of Awesomeness</td><td>displayed on a single line in clients</td><td>user@example.org's buddycloud channel</td></tr><tr><td>Channel description</td><td>This is a channel about the things that I like to do. Please post nice comments.</td><td>a multi-line description in clients</td><td>&lt;empty&gt;</td></tr><tr><td>Access model</td><td>whitelist</td><td>Who can view the channel?<br /><ul><li><i>whitelist</i> means the channel is only viewable by followers, followers+post and moderators.</li><li><i>open</i> means anyone can view the channel</li><li><i>open</i> makes the channel web-viewable to anyone </li></ul></td><td>Channel posts are open to the world, location is open to just friends. i.e.<br /><ul><li>.../channel - open</li><li>.../mood - open</li><li>.../geo/future - whitelist</li><li>.../geo/current - whitelist</li><li>.../geo/previous -whitelist</li></ul></td></tr><tr><td>Default affiliation</td><td>publisher</td><td>What role do new followers have?<br /><ul><li><i>publisher</i> (userspeak: "follower+post")</li><li><i>member</i> (userspeak: "follower")</li></ul></td><td>publisher</td></tr></table>
+  </section2>
+
+  <section2 topic='Node affiliations'>
+    <section3 topic='Default affiliations'>
+      <p>
+	By prescribing sensible behavior that a server can enforce we
+	avoid support issues on clients. "I've lost publishing rights
+	to my own channel" or "I can't view a friends channel even
+	though I am a moderator in that channel".  Pub-sub is a great
+	backend. A good user service built on it will prescribe
+	sensible business logic that fits with a users mental model of
+	what channels provide. We do that by adding a bit of business
+	logic to the channel server:
+      </p>
+      <ul>
+	<li>channels nodes are owned by their jid. For example channeluser@example.com owns channel.example.com, node /user/channeluser@example.com/channel</li>
+	<li>maintain similar affiliations across .../channel, .../geo/current, .../geo/previous, .../geo/future and .../mood</li>
+	<li>only moderators and producers should be able to see channel outcasts (don't glorify the bad guys)</li>
+	<li>use predictable channel addresses for web users.</li>
+        <li>overview of channel services: http://channels.example.com</li>
+        <li>individual user channels http://channels.example.com/user@example.com</li>
+      </ul>
+    </section3>
+
+    <section3 topic='Affiliations jargon'>
+      <p>
+	The advent of Social Networks and Activity Streaming platforms
+	has given rise to a now-established lingo that converges from
+	the names given in Publish-Subscribe. Client authors should
+	translate between these jargons for user acceptance.
+      </p>
+      <table>
+	<tr><th>Users see</th><th>Reported as</th><th>Capabilities</th><th>Notes</th></tr>
+	<tr><td>producer</td><td>owner</td><td>publish and delete anyone's posts</td><td></td></tr>
+	<tr><td>moderator</td><td>moderator</td><td>posts can remove posts and approve new followers</td><td></td></tr>
+	<tr><td>follower+post</td><td>publisher</td><td>read and post</td><td>default role for new followers</td></tr><tr><td>follower</td><td>member</td><td>read-only</td><td></td></tr>
+	<tr><td> banned</td><td> outcast</td><td>no posting rights. <br />new follow requests from this user are also ignored<br /></td><td>To avoid "glorification of the bad", only the channel producer and moderators should see the banned list.</td></tr></table>
+    </section3>
+  </section2>
 </section1>
-<section1 topic='Glossary' anchor='glossary'>
-  <p>OPTIONAL.</p>
-</section1>
-<section1 topic='Use Cases' anchor='usecases'>
-  <p>STRONGLY RECOMMENDED.</p>
-</section1>
-<section1 topic='Business Rules' anchor='rules'>
-  <p>OPTIONAL.</p>
-</section1>
-<section1 topic='Implementation Notes' anchor='impl'>
-  <p>OPTIONAL.</p>
-</section1>
-<section1 topic='Accessibility Considerations' anchor='access'>
-  <p>OPTIONAL.</p>
-</section1>
-<section1 topic='Internationalization Considerations' anchor='i18n'>
-  <p>OPTIONAL.</p>
-</section1>
-<section1 topic='Security Considerations' anchor='security'>
-  <p>REQUIRED.</p>
-</section1>
-<section1 topic='IANA Considerations' anchor='iana'>
-  <p>REQUIRED.</p>
-</section1>
-<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
-  <p>REQUIRED.</p>
-</section1>
-<section1 topic='XML Schema' anchor='schema'>
-  <p>REQUIRED for protocol specifications.</p>
+
+
+<section1 topic='Compatibility' anchor='compat'>
+  <p>
+    This section does not describe interoperation with other
+    standards, such as oStatus, but shows differences with existing
+    XMPP PubSub systems.
+  </p>
+
+  <section2 topic='Interfacing existing XMPP PubSub systems'>
+  </section2>
+
+  <section2 topic='Interoperation with the BuddyCloud Social Network'>
+  </section2>
+
 </section1>
 </xep>
